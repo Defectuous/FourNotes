@@ -73,10 +73,10 @@ namespace ArcheAgeFourNotes{
                     Thread.Sleep(2075);
                 }
                     
-            if (skillCooldown("[Perform] Ode to Revery") == 0 )
+            if (skillCooldown("[Perform] Ode to Recovery") == 0 )
                 {
-                    UseSkill("[Perform] Ode to Revery");
-                    Log("Casting Ode to Revery");
+                    UseSkill("[Perform] Ode to Recovery");
+                    Log("Casting Ode to Recovery");
                     Thread.Sleep(2075);
                 }
                 
