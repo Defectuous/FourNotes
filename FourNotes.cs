@@ -12,7 +12,7 @@ namespace DefaultNameSpace{
        public static string GetPluginAuthor()
        { return "Defectuous"; }
        public static string GetPluginVersion()
-       { return "1.0.0.7"; }
+       { return "1.0.0.9"; }
        public static string GetPluginDescription()
        { return "Four Notes: Part/Raid Songcraft Buffs Plugin"; }
         
@@ -55,8 +55,8 @@ namespace DefaultNameSpace{
                         Log("Casting Quickstep");
                         Thread.Sleep(2075);
                     }
-                    Thread.Sleep(3000);
-                    Log("Sleeping for 3 Seconds");
+                    Thread.Sleep(18000);
+                    Log("Sleeping for 18 Seconds");
                 } 
        }
        //Call on plugin stop
