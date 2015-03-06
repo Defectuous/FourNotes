@@ -10,13 +10,14 @@ using ArcheBuddy.Bot.Classes;
 // Special Thanks to 2face for the following thread " [Plugin] [Example] Autofollower/Healer Base "  
 // 
 
+
 namespace ArcheAgeFourNotes{
     public class FourNotes : Core
    {
        public static string GetPluginAuthor()
        { return "Defectuous"; }
        public static string GetPluginVersion()
-       { return "1.1.0.3"; }
+       { return "1.1.0.1"; }
        public static string GetPluginDescription()
        { return "Four Notes: Songcraft four songs"; }
        
@@ -24,13 +25,7 @@ namespace ArcheAgeFourNotes{
        private Creature _leader = null;
        private Double _bardRange = 19.5;
        private Double _followRange = 19.5;
-	   
-	   // The Four Songs to change the order in which they are played.
-	   string Song1 = "[Perform] Bulwark Ballad";
-	   string Song2 = "[Perform] Bloody Chantey";
-	   string Song3 = "[Perform] Ode to Recovery";
-	   string Song4 = "[Perform] Quickstep";
-	   
+
        // Verify you are not the party/raid leader
        public void PluginRun()
         {    
@@ -63,31 +58,31 @@ namespace ArcheAgeFourNotes{
         {
             Log("----------------------------------------------");
             Log("Starting Rotation");
-            if (skillCooldown(Song1) == 0 )
+            if (skillCooldown("[Perform] Bulwark Ballad") == 0 )
                 {
-                    UseSkill(Song1);
-                    Log("Casting" + Song1);
+                    UseSkill("[Perform] Bulwark Ballad");
+                    Log("Casting Bulwark Ballad");
                     Thread.Sleep(2075);
                 }
                     
-            if (skillCooldown(Song2) == 0 )
+            if (skillCooldown("[Perform] Bloody Chantey") == 0 )
                 {
-                    UseSkill(Song2);
-                    Log("Casting" + Song2);
+                    UseSkill("[Perform] Bloody Chantey");
+                    Log("Casting Bloody Chantey");
                     Thread.Sleep(2075);
                 }
                     
-            if (skillCooldown(Song3) == 0 )
+            if (skillCooldown("[Perform] Ode to Recovery") == 0 )
                 {
-                    UseSkill(Song3);
-                    Log("Casting" + Song3);
+                    UseSkill("[Perform] Ode to Recovery");
+                    Log("Casting Ode to Recovery");
                     Thread.Sleep(2075);
                 }
                 
-            if (skillCooldown(Song4) == 0 )
+            if (skillCooldown("[Perform] Quickstep") == 0 )
                 {
-                    UseSkill(Song4);
-                    Log("Casting" + Song4);
+                    UseSkill("[Perform] Quickstep");
+                    Log("Casting Quickstep");
                     Thread.Sleep(2075);
                 }
             Log("Sleeping for 18 Seconds");
