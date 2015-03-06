@@ -17,28 +17,30 @@ namespace ArcheAgeFourNotes{
        public static string GetPluginAuthor()
        { return "Defectuous"; }
        public static string GetPluginVersion()
-       { return "1.1.0.0"; }
+       { return "1.1.0.1"; }
        public static string GetPluginDescription()
        { return "Four Notes: Songcraft four songs"; }
        
+       // Generic Configuration
        private Creature _leader = null;
        private Double _bardRange = 19.5;
-       private Double _followRange = 10.0;
-       
+       private Double _followRange = 19.5;
+
+       // Verify you are not the party/raid leader
        public void PluginRun()
         {    
             _leader = getPartyLeaderObj();
             if(_leader == null || _leader == me){
-                Log("Please set leader");
+                Log("Please set a leader other than yourself");
             }else{
                 Start();
             }
             
         }  
         
+        // Lets get this party started
         public void Start(){
             while(true){
-                Thread.Sleep(50);
                 if(_leader != null){
                     if(_leader.inFight && me.dist(_leader) < _bardRange){
                         bardRoutine();
@@ -50,11 +52,8 @@ namespace ArcheAgeFourNotes{
                 
             }
         }
-            
-         public void moveToPlayer(Creature obj){
-            ComeTo(obj, _followRange);
-        }
         
+        // If the spell is not on cooldown play the four songs.
         public void bardRoutine()
         {
             Log("----------------------------------------------");
@@ -86,10 +85,15 @@ namespace ArcheAgeFourNotes{
                     Log("Casting Quickstep");
                     Thread.Sleep(2075);
                 }
-            Thread.Sleep(3000);
-            Log("Sleeping for 3 Seconds");
-        }
+            Log("Sleeping for 18 Seconds");
+            Thread.Sleep(18000);
+            }
 
+        // Move towards leader            
+         public void moveToPlayer(Creature obj){
+            ComeTo(obj, _followRange);
+        }
+        
         //Call on plugin stop
         public void PluginStop()
         {
