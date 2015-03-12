@@ -70,3 +70,5 @@ namespace DefaultNameSpace{
        public void PluginStop()
        {
        }
+    }
+}
