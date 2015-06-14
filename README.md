@@ -1,2 +1,2 @@
 # FourNotes
-Arche Buddy [Plugin] Four Songs - Party/Raid Buffs
+Arche Buddy [Plugin] Four Notes - Party/Raid Buffs
