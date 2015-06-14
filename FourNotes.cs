@@ -21,6 +21,8 @@ namespace ArcheAgeFourNotes
         private bool _followMode = true;
         private Double _followRange = 5.0;
         private Creature _leader = null;
+        string _soup = "Hearty Soup"; // Mana Food
+        int    _mana = 60; // Percentage to eat food at
         
         // Do not EDIT Below this line 
         // ##########################################################
@@ -49,10 +51,10 @@ namespace ArcheAgeFourNotes
         public void FollowTheLeader()
         {
             while(true) {
-                Log(Time() + "Distance to Leader:" +me.dist(_leader));
-                Thread.Sleep(3500);     
+                Thread.Sleep(5000);     
                 if (me.dist(_leader) >= _followRange)
-                { moveToPlayer(_leader); Thread.Sleep(3500); }
+                { Log(Time() + "[INFO]: Distance to Leader: " + me.dist(_leader)); moveToPlayer(_leader); }
+                
             } 
                 
         }
@@ -60,6 +62,14 @@ namespace ArcheAgeFourNotes
         public void moveToPlayer(Creature obj)
         {
             ComeTo(obj, _followRange);
+        }
+        
+        public void ManaCheck()
+        {
+            if (mpp(me) <= _mana && itemCooldown(_soup) == 0){
+                UseItem(_soup); 
+                Log(Time() + "[INFO]: Mana Below " + _mana + " Percent. Consuming " + _soup + " for mana");
+                } Log(Time() + "[INFO]: Mana at " + mpp(me) + "%");
         }
         
         // Play that Funky Music White Boy
@@ -93,6 +103,7 @@ namespace ArcheAgeFourNotes
                     Log(Time() + "[INFO]: Casting Quickstep");
                 } Thread.Sleep(2000);
                 
+                ManaCheck();
                 Log(Time() + "[INFO]: Sleeping for 22 Seconds");
                 Thread.Sleep(21500);
                 Log(Time() + "[INFO]: Starting Next Rotation");
