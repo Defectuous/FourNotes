@@ -13,7 +13,7 @@ namespace ArcheAgeFourNotes
         public static string GetPluginAuthor()
         { return "Defectuous"; }
         public static string GetPluginVersion()
-        { return "1.0.1.26"; }
+        { return "1.0.1.35"; }
         public static string GetPluginDescription()
         { return "4 Notes: Party/Raid Songcraft Buffs Plugin"; }
         
@@ -21,8 +21,20 @@ namespace ArcheAgeFourNotes
         
         private bool _followMode = true; // To follow the party / raid leader
         private Double _followRange = 5.0;
+        
+        // Looting Management  [Currently This looks very bottish]
+        private bool _deadloot = false; // Looting the Dead so the leader doesn't have to.
+        int _lootdist = 25; // The range to go pick up loot from
+        
+        // Mana Mangment
         string _soup = "Hearty Soup"; // Mana Food
         int    _mana = 60; // Percentage to eat food at
+        
+        // Buffs 
+        //private bool _BulwarkBallad  = true; 
+        //
+        
+        // Resurection
         
         // pick and choose your spells if you want to
         private bool _BulwarkBallad  = true;
@@ -66,6 +78,7 @@ namespace ArcheAgeFourNotes
                 Thread.Sleep(1000);     
                 if (me.dist(_leader) >= _followRange)
                 { Log(Time() + "[INFO]: Distance to Leader: " + me.dist(_leader)); moveToPlayer(_leader); }
+                if (_deadloot == true) { LootDead(); }
                 
             } 
                 
@@ -84,9 +97,26 @@ namespace ArcheAgeFourNotes
                 } Log(Time() + "[INFO]: Mana at " + mpp(me) + "%");
         }
 
-        //public void BuffCheck()
-        //{}
+        // Buff Check
             
+        // Looting Dead
+        public void LootDead() 
+        { 
+            foreach (var dead in getCreatures()) 
+            { 
+                if (dead.dropAvailable && me.dist(dead) <= _lootdist) 
+                { 
+                    if (me.dist(dead) <= 2) 
+                    { PickupAllDrop(dead); }
+                    else { 
+                        ComeTo(dead, 2); 
+                        PickupAllDrop(dead); 
+                    } 
+                    Thread.Sleep(100); 
+                } 
+            } 
+        }
+        
         // Play that Funky Music White Boy
         public string Songs()
         {
