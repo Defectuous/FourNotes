@@ -20,7 +20,7 @@ namespace ArcheAgeFourNotes
         // [ Configuration Section Start ]
         
         private bool _followMode = false; // To follow the party / raid leader
-        private bool _noParty = false; // For when you don't want to follow the leader
+        private bool _noParty = false; // So you can just use the four notes witout needing a party leader
         private Double _followRange = 5.0; // follow range
         
         // Looting Management  [ Currently This looks very bottish ]
@@ -68,25 +68,25 @@ namespace ArcheAgeFourNotes
             // Starting Threads
             Thread followThread = new Thread(new ThreadStart(FollowTheLeader));
             
-            if (_leader == null || _leader == me)
-            { Log(Time() + "[WARN] Please set a Leader other than yourself or join a Party/Raid"); } 
-                else  { 
-                    if (_followMode == true){ followThread.Start(); Log(Time() + "[INFO] Starting Following Thread"); }
+            if(_noParty == false){
+                Log(Time() + "[INFO] _noParty set to false");
+                if (_leader == null || _leader == me)
+                { Log(Time() + "[WARN] Please set a Leader other than yourself or join a Party/Raid"); } 
+                    else  { 
+                        if (_followMode == true){ followThread.Start(); Log(Time() + "[INFO] Starting Following Thread"); }
                     
-                    Songs();
+                        Songs();
                     
-                    if (_followMode == true){ followThread.Abort(); Log(Time() + "[INFO] Ending Following Thread"); }
-            } 
+                        if (_followMode == true){ followThread.Abort(); Log(Time() + "[INFO] Ending Following Thread"); }
+                }
+            }
 
-            Log(Time() + "[INFO] Checking to see if _noParty is set to true");
-            
             // No Party Mode 
             if(_noParty == true)
             {
                 Log(Time() + "[INFO] _noParty is set to true");
                 Songs();
-            } else { Log(Time() + "[INFO] _noParty Mode is set to false"); }
-            
+            }
             Log(Time() + "[INFO] ENDING 4 NOTES");
         }
         
