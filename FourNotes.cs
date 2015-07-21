@@ -32,7 +32,8 @@ namespace ArcheAgeFourNotes
         string _soup = "Hearty Soup"; // Mana Food or Pot
         int    _mana = 60; // Percentage to eat food or put up at
         
-
+        // Emergency Mana using Meditate
+        bool _EmergencyMP = true; // My Mana has hit less than 30%
         
         // Buffs 
         private bool _BuffChecks  = true; // Check Each Party Member for the following Buffs.
@@ -49,12 +50,10 @@ namespace ArcheAgeFourNotes
         // Self Buffs
         bool _Itemuse0 = false; // Tyrenos's Index ( Library Use Only Item )
         bool _Itemuse1 = false; // Brick Wall
-        bool _Itemuse2 = false; // XP Boost Potions 
+        //bool _Itemuse2 = false; // XP Boost Potions (Need to sort out Buffs ))
         
-        // Emergency Functions
+        // Party Oh Fuck Healing
         // bool _EmergencyHP = false; // Party Member HP hit's below 50% will cast heals ( Disabled )
-        
-        bool _EmergencyMP = true; // My Mana has hit less than 30%
         
         // [ Configuration Section End ]
         
