@@ -13,14 +13,14 @@ namespace ArcheAgeFourNotes
         public static string GetPluginAuthor()
         { return "Defectuous"; }
         public static string GetPluginVersion()
-        { return "1.0.1.55"; }
+        { return "1.0.1.57"; }
         public static string GetPluginDescription()
         { return "4 Notes: Party/Raid Songcraft Buffs Plugin"; }
         
         // [ Configuration Section Start ]
         
-        private bool _followMode = false; // To follow the party / raid leader
-        private bool _noParty = false; // So you can just use the four notes witout needing a party leader
+        private bool _followMode = true; // To follow the party / raid leader
+        private bool _noParty = false;
         private Double _followRange = 5.0; // follow range
         
         // Looting Management  [ Currently This looks very bottish ]
@@ -35,10 +35,10 @@ namespace ArcheAgeFourNotes
 
         
         // Buffs 
-        private bool _BuffChecks  = false; // Check Each Party Member for the following Buffs.
-        private bool _HummingbirdDitty   = false; // To give HUmmingbird Ditty Buff to all Party members in range
-        private bool _AranzebsBoon   = false; // To give Aranzeb's Boon to all Party members in range
-        private bool _HealthLift = false;
+        private bool _BuffChecks  = true; // Check Each Party Member for the following Buffs.
+        private bool _HummingbirdDitty   = true; // To give HUmmingbird Ditty Buff to all Party members in range
+        private bool _AranzebsBoon   = true; // To give Aranzeb's Boon to all Party members in range
+        private bool _HealthLift = true;
         
         // pick and choose your spells if you want to
         private bool _BulwarkBallad  = true;
@@ -49,8 +49,12 @@ namespace ArcheAgeFourNotes
         // Self Buffs
         bool _Itemuse0 = false; // Tyrenos's Index ( Library Use Only Item )
         bool _Itemuse1 = false; // Brick Wall
-        bool _Itemuse2 = false; // XP Boost Potions
+        bool _Itemuse2 = false; // XP Boost Potions 
         
+        // Emergency Functions
+        // bool _EmergencyHP = false; // Party Member HP hit's below 50% will cast heals ( Disabled )
+        
+        bool _EmergencyMP = true; // My Mana has hit less than 30%
         
         // [ Configuration Section End ]
         
@@ -67,6 +71,7 @@ namespace ArcheAgeFourNotes
 
             // Starting Threads
             Thread followThread = new Thread(new ThreadStart(FollowTheLeader));
+            //Thread resThread    = new Thread(new ThreadStart(ResParty));
             
             if(_noParty == false){
                 Log(Time() + "[INFO] _noParty set to false");
@@ -114,6 +119,14 @@ namespace ArcheAgeFourNotes
                 Log(Time() + "[INFO] Mana Below " + _mana + " Percent. Consuming " + _soup + " for mana");
                 } Log(Time() + "[INFO] Mana at " + mpp(me) + "%");
         }
+            
+        public void EmergencyMana()
+        {
+            if (mpp(me) <= 30 && isSkillLearned(11989) == true && skillCooldown(11989) == 0){
+                Log(Time() + "[INFO] Mana Below 30% Percent. Using Meditate");
+                UseSkill(11989); 
+                }
+        }    
         
         // Buff Check
         public void BuffCheck()
@@ -191,12 +204,10 @@ namespace ArcheAgeFourNotes
                         Log(Time() + "Using Spellbook: Brick Wall");
                         UseItem(31776);
                         Thread.Sleep(2500); // Rest for 2.5 seconds ( little over the global cooldown )
-                    }
+            }
             
         }  
         
-       
-                
         // Looting Dead
         public void LootDead() 
         { 
@@ -247,6 +258,8 @@ namespace ArcheAgeFourNotes
                 } Thread.Sleep(2000);
                 
                 if (_ManaManage == true) { ManaCheck(); }
+                if (_EmergencyMP == true) { EmergencyMana(); }
+                //if (_EmergencyHP == true) { HealthFix(); }
                 Log(Time() + "[INFO] Next Song Starts in 22 Seconds");
                 Thread.Sleep(21500);
                 Log(Time() + "[INFO] Starting Next Rotation");
