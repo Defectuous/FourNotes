@@ -256,13 +256,12 @@ namespace ArcheAgeFourNotes
                     Log(Time() + "[INFO] Casting Quickstep");
                 } Thread.Sleep(2000);
                 
-                if (_ManaManage == true) { ManaCheck(); }
-                if (_EmergencyMP == true) { EmergencyMana(); }
                 //if (_EmergencyHP == true) { HealthFix(); }
                 Log(Time() + "[INFO] Next Song Starts in 22 Seconds");
                 Thread.Sleep(21500);
                 Log(Time() + "[INFO] Starting Next Rotation");
-                
+                if (_ManaManage == true) { ManaCheck(); }
+                if (_EmergencyMP == true) { EmergencyMana(); }                
             }
         }
         
